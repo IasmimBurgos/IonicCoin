@@ -1,27 +1,346 @@
-#container {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+ion-content {
+  --background: linear-gradient(135deg, #fbe9ef, #f7d6e0);
+  font-family: 'Poppins', Arial, sans-serif;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+ion-toolbar {
+  --background: linear-gradient(90deg, #c47a96, #e8a9c0);
+  --color: white;
+  height: 72px;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+ion-title {
+  font-size: 27px;
+  font-weight: 600;
+}
 
-  color: #8c8c8c;
+.container {
+  max-width: 1180px;
+  margin: 28px auto;
+  padding: 0 18px;
+}
 
+.hero,
+.card {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #f7d6e0;
+  border-radius: 24px;
+  padding: 28px 26px;
+  margin-bottom: 24px;
+  box-shadow: 0 12px 30px rgba(107, 75, 87, 0.10);
+}
+
+.tag {
+  display: inline-block;
+  background: #f7d6e0;
+  color: #6b4b57;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  font-weight: 700;
+  color: #6b4b57;
   margin: 0;
 }
 
-#container a {
-  text-decoration: none;
+.hero p,
+p {
+  color: #6b4b57;
+}
+
+.titulo {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.icone-titulo {
+  color: #c47a96;
+  font-size: 34px;
+}
+
+h1,
+h2 {
+  margin: 0;
+  color: #6b4b57;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+.conversor {
+  display: grid;
+  grid-template-columns: 1fr 74px 1fr;
+  gap: 32px;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.painel {
+  background: #fbf2f5;
+  border: 1px solid #f7d6e0;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.painel label,
+.destino-select label,
+.busca-moeda label,
+.config-item label {
+  color: #c47a96;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.moeda-select {
+  height: 58px;
+  border: 1px solid #f7d6e0;
+  border-radius: 16px;
+  background: white;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.moeda-select img {
+  width: 30px;
+  height: 22px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.moeda-select strong,
+.moeda-select span {
+  color: #6b4b57;
+}
+
+.moeda-select select {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+ion-input {
+  --background: white;
+  --padding-start: 18px;
+  --padding-end: 18px;
+  min-height: 70px;
+  border: 2px solid #e8a9c0;
+  border-radius: 16px;
+  font-size: 38px;
+  color: #6b4b57;
+}
+
+.resultado {
+  min-height: 70px;
+  border: 1px solid #f7d6e0;
+  border-radius: 16px;
+  background: #fbe9ef;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  font-size: 38px;
+  font-weight: 600;
+  color: #6b4b57;
+}
+
+.trocar {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  border: 1px solid #f7d6e0;
+  background: white;
+  color: #c47a96;
+  font-size: 32px;
+  box-shadow: 0 12px 24px rgba(107, 75, 87, 0.14);
+  cursor: pointer;
+}
+
+ion-button {
+  margin-top: 22px;
+  height: 54px;
+  font-weight: 600;
+  --background: linear-gradient(90deg, #c47a96, #e8a9c0);
+  --border-radius: 16px;
+}
+
+.destino-select,
+.busca-moeda {
+  margin-top: 22px;
+}
+
+.destino-select select,
+.busca-moeda input,
+.config-item select {
+  width: 100%;
+  height: 56px;
+  border: 1px solid #f7d6e0;
+  border-radius: 16px;
+  background: white;
+  color: #6b4b57;
+  padding: 0 16px;
+  font-size: 16px;
+  font-family: 'Poppins', Arial, sans-serif;
+  outline: none;
+}
+
+.resultados-busca {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+  margin: 12px 0 20px;
+}
+
+.resultados-busca button {
+  max-height: 52px;
+  overflow: hidden;
+  border: 1px solid #f7d6e0;
+  background: white;
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #6b4b57;
+  font-family: 'Poppins', Arial, sans-serif;
+  cursor: pointer;
+}
+
+.resultados-busca button img {
+  width: 28px !important;
+  height: 20px !important;
+  max-width: 28px !important;
+  max-height: 20px !important;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.resultados-busca button span {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.configuracoes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.historico-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.historico-cabecalho ion-button {
+  margin: 0;
+  --background: transparent;
+  --color: #c47a96;
+  --border-color: #c47a96;
+  height: 38px;
+  min-width: 90px;
+}
+
+.lista {
+  border: 1px solid #f7d6e0;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.linha {
+  display: grid;
+  grid-template-columns: 42px 1fr 130px 130px;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid #f7d6e0;
+  background: white;
+}
+
+.bolinha {
+  width: 32px;
+  height: 32px;
+  background: #fbe9ef;
+  color: #c47a96;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.linha span {
+  color: #6b4b57;
+  font-size: 15px;
+}
+
+.linha strong {
+  text-align: right;
+  color: #c47a96;
+}
+
+.linha small {
+  text-align: right;
+  color: #6b4b57;
+}
+
+.taxa,
+.vazio,
+footer {
+  color: #6b4b57;
+}
+
+.offline {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+footer {
+  text-align: center;
+  font-size: 14px;
+  margin: 26px 0;
+}
+
+@media (max-width: 768px) {
+  .conversor,
+  .configuracoes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trocar {
+    margin: 0 auto;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .linha {
+    grid-template-columns: 36px 1fr;
+  }
+
+  .linha strong,
+  .linha small {
+    grid-column: 2;
+    text-align: left;
+  }
 }

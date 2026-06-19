@@ -1,20 +1,209 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>IonicCoin ✈️</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <main class="container">
+
+    <section class="hero">
+      <span class="tag">💅 Guia de comprinhas internacionais</span>
+      <h1>Seu dinheiro pelo mundo</h1>
+      <p>
+        Vai viajar, fazer comprinhas ou planejar aquela compra em outra moeda?
+        Veja rapidinho quanto seu dinheiro vale em outros lugares do mundo.
+      </p>
+    </section>
+
+    <section class="card destino-card">
+      <div class="titulo">
+        <span class="icone-titulo">🌍</span>
+        <div>
+          <h2>Modo Viagem</h2>
+          <p>Escolha um destino e eu já seleciono a moeda para você.</p>
+        </div>
+      </div>
+
+      <div class="destino-select">
+        <label>Para onde você vai?</label>
+
+        <select
+          [(ngModel)]="destinoViagem"
+          (change)="selecionarDestino()">
+          <option value="">Escolha um destino</option>
+          <option *ngFor="let destino of (destinos | keyvalue)" [value]="destino.key">
+            {{ destino.key }}
+          </option>
+        </select>
+      </div>
+    </section>
+
+    <section class="card principal">
+      <div class="titulo">
+        <span class="icone-titulo">🛍️</span>
+        <div>
+          <h2>Calculadora de viagem</h2>
+          <p>Escolha as moedas e descubra o valor convertido em tempo real.</p>
+        </div>
+      </div>
+
+      <div class="busca-moeda">
+        <label>Pesquisar moeda</label>
+
+        <input
+          type="text"
+          placeholder="Ex: dólar, euro, USD, BRL..."
+          [(ngModel)]="buscaMoeda">
+      </div>
+
+      <div class="resultados-busca" *ngIf="buscaMoeda.length > 0">
+        <button
+          type="button"
+          *ngFor="let moeda of moedasFiltradas()"
+          (click)="moedaDestino = moeda; limparResultado(); buscaMoeda = ''">
+          <img [src]="bandeiras[moeda]" alt="Bandeira">
+          <span>{{ moeda }} - {{ nomes[moeda] }}</span>
+        </button>
+      </div>
+
+      <div class="conversor">
+
+        <div class="painel">
+          <label>Eu tenho</label>
+
+          <div class="moeda-select">
+            <img [src]="bandeiras[moedaOrigem]" alt="Bandeira">
+            <strong>{{ moedaOrigem }}</strong>
+            <span>{{ nomes[moedaOrigem] }}</span>
+
+            <select
+              [(ngModel)]="moedaOrigem"
+              (change)="limparResultado()">
+              <option *ngFor="let moeda of moedas" [value]="moeda">
+                {{ moeda }} - {{ nomes[moeda] }}
+              </option>
+            </select>
+          </div>
+
+          <ion-input
+            type="number"
+            [(ngModel)]="valor"
+            (ionInput)="limparResultado()">
+          </ion-input>
+        </div>
+
+        <button class="trocar" type="button" (click)="inverterMoedas()">
+          ⇄
+        </button>
+
+        <div class="painel">
+          <label>Vai valer em</label>
+
+          <div class="moeda-select">
+            <img [src]="bandeiras[moedaDestino]" alt="Bandeira">
+            <strong>{{ moedaDestino }}</strong>
+            <span>{{ nomes[moedaDestino] }}</span>
+
+            <select
+              [(ngModel)]="moedaDestino"
+              (change)="limparResultado()">
+              <option *ngFor="let moeda of moedas" [value]="moeda">
+                {{ moeda }} - {{ nomes[moeda] }}
+              </option>
+            </select>
+          </div>
+
+          <div class="resultado">
+            {{ resultado | number:'1.2-2' }}
+          </div>
+
+          <p class="taxa" *ngIf="taxaAtual > 0">
+            1 {{ moedaOrigem }} = {{ taxaAtual | number:'1.4-4' }} {{ moedaDestino }}
+          </p>
+
+          <p class="offline" *ngIf="mensagemOffline">
+            {{ mensagemOffline }}
+          </p>
+        </div>
+
+      </div>
+
+      <ion-button expand="block" (click)="converter()">
+        Converter
+      </ion-button>
+    </section>
+
+    <section class="card configuracoes-card">
+      <div class="titulo">
+        <span class="icone-titulo">⚙️</span>
+        <div>
+          <h2>Configurações</h2>
+          <p>Escolha como deseja atualizar suas taxas de câmbio.</p>
+        </div>
+      </div>
+
+      <div class="configuracoes-grid">
+        <div class="config-item">
+          <label>Frequência de atualização</label>
+
+          <select
+            [(ngModel)]="frequenciaAtualizacao"
+            (change)="salvarConfiguracoes()">
+            <option value="sempre">Sempre que abrir o app</option>
+            <option value="hora">A cada hora</option>
+            <option value="diario">Diariamente</option>
+          </select>
+        </div>
+
+        <div class="config-item">
+          <label>Notificações de variação</label>
+
+          <select
+            [(ngModel)]="receberNotificacoes"
+            (change)="salvarConfiguracoes()">
+            <option [ngValue]="false">Desativadas</option>
+            <option [ngValue]="true">Ativadas</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="historico-cabecalho">
+        <div class="titulo">
+          <span class="icone-titulo">💖</span>
+          <div>
+            <h2>Minhas simulações</h2>
+            <p>Histórico das suas últimas conversões para viagem e compras.</p>
+          </div>
+        </div>
+
+        <ion-button fill="outline" size="small" (click)="limparHistorico()">
+          Limpar
+        </ion-button>
+      </div>
+
+      <p *ngIf="historico.length === 0" class="vazio">
+        Nenhuma simulação realizada ainda.
+      </p>
+
+      <div class="lista" *ngIf="historico.length > 0">
+        <div class="linha" *ngFor="let item of historico">
+          <span class="bolinha">✨</span>
+          <span>{{ item.texto }}</span>
+          <strong>{{ item.resultado | number:'1.2-2' }}</strong>
+          <small>🕒 {{ item.hora }}</small>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Dados fornecidos pela ExchangeRate API<br>
+      IonicCoin © 2026
+    </footer>
+
+  </main>
+
 </ion-content>
